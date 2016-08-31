@@ -18,7 +18,7 @@ fi
 
 if [ "$1" = 'sickrage' ]; then
     /bin/chown -R "${MYUSER}" /config /cache
-    exec su-suexec /usr/bin/python /opt/sickrage/SickBeard.py --datadir=/config/ --config=/config/config.ini "$@"
+    exec su-suexec "${MYUSER}" /usr/bin/python /opt/sickrage/SickBeard.py --datadir=/config/ --config=/config/config.ini "$@"
 fi
 
 exec "$@"
