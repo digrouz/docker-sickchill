@@ -25,7 +25,7 @@ RUN apk --no-cache upgrade && \
            /var/tmp/*
 
 ### Volume
-VOLUME ["/config", "/downloads", "/tv"]
+VOLUME ["/config", "/downloads", "/tv", "/animes"]
 
 ### Expose ports
 EXPOSE 8081
