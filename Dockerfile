@@ -33,3 +33,5 @@ EXPOSE 8081
 #USER sickrage
 
 ### Start Sickrage
+COPY ./docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
