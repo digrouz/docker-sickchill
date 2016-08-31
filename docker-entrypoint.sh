@@ -1,4 +1,3 @@
-/ # cat docker-entrypoint.sh 
 #!/bin/sh
 set -e
 local MYUSER="sickrage"
