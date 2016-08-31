@@ -36,4 +36,4 @@ EXPOSE 8081
 ### Start Sickrage
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["--help"]
+CMD ["sickrage"]
