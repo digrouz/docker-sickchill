@@ -21,7 +21,8 @@ if ! /bin/grep -q "${MYUSER}" /etc/passwd; then
 fi
 
 if [ "$1" = 'sickrage' ]; then
-    /bin/chown -R "${MYUSER}" /config
+    /bin/chown -R "${MYUSER}":"${MYUSER}" /config /opt/sickbeard
+    /bin/chmod -R g+w /config /opt/sickbeard
     exec /sbin/su-exec "${MYUSER}" /usr/bin/python /opt/sickrage/SickBeard.py --nolaunch --datadir=/config/ --config=/config/config.ini "$@"
 fi
 
