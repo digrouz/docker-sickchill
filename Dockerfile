@@ -18,7 +18,6 @@ RUN apk --no-cache upgrade && \
     pip --no-cache-dir install --upgrade setuptools && \
     pip --no-cache-dir install --upgrade ${RUNPIPREQ} && \
     git clone --depth 1 https://github.com/SickRage/SickRage.git /opt/sickrage && \
-    gosu nobody true && \
     apk --no-cache del ${BLDAPKREQ} && \
     rm -rf /tmp/* \
            /var/cache/apk/*  \
