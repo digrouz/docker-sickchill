@@ -19,7 +19,8 @@ RUN apk --no-cache upgrade && \
     pip --no-cache-dir install --upgrade ${RUNPIPREQ} && \
     git clone --depth 1 https://github.com/SickRage/SickRage.git /opt/sickrage && \
     apk --no-cache del ${BLDAPKREQ} && \
-    rm -rf /tmp/* \
+    rm -rf /opt/sickrage/.git* \
+           /tmp/* \
            /var/cache/apk/*  \
            /var/tmp/*
 
