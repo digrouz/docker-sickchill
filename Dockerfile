@@ -6,8 +6,8 @@ MAINTAINER DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm' \
-    BLDAPKREQ='make gcc g++ python-dev py-pip git openssl-dev libffi-dev' \
-    RUNAPKREQ='ca-certificates python py-libxml2 py-lxml unrar su-exec' \
+    BLDAPKREQ='make gcc g++ python-dev py-pip openssl-dev libffi-dev' \
+    RUNAPKREQ='ca-certificates python py-libxml2 py-lxml unrar su-exec git' \
     RUNPIPREQ='pyopenssl cheetah requirements'
 
 ### Install Application
