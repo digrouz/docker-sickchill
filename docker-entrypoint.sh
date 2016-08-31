@@ -8,7 +8,7 @@ local MYUID="10000"
 if [ -n "${DOCKGID}" ]; then
   MYGID="${DOCKGID}"
 fi
-/usr/sbin/addgroup --system -g "${MYGID}" "${MYUSER}"
+/usr/sbin/addgroup -S -g "${MYGID}" "${MYUSER}"
 
 #Managing user
 if [ -n "${DOCKUID}" ]; then
