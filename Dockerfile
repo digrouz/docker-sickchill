@@ -8,7 +8,7 @@ ENV LANG='en_US.UTF-8' \
     TERM='xterm' \
     BLDAPKREQ='make gcc g++ python-dev py-pip git openssl-dev libffi-dev' \
     RUNAPKREQ='ca-certificates python py-libxml2 py-lxml unrar' \
-    RUNPIPREQ='pyopenssl cheetah requirements' \
+    RUNPIPREQ='pyopenssl cheetah requirements' 
 
 ### Install Application
 RUN apk --no-cache upgrade && \
