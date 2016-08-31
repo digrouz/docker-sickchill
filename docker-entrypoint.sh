@@ -17,7 +17,7 @@ fi
 /usr/sbin/adduser -S -D -H -G "${MYUSER}" -u "${MYUID}" "${MYUSER}"
 
 if [ "$1" = 'sickrage' ]; then
-    chown -R "${MYUSER}" /config /cache
+    /bin/chown -R "${MYUSER}" /config /cache
     exec su-suexec /usr/bin/python /opt/sickrage/SickBeard.py --datadir=/config/ --config=/config/config.ini "$@"
 fi
 
