@@ -7,7 +7,7 @@ ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm' \
     BLDAPKREQ='make gcc g++ python-dev py-pip git openssl-dev libffi-dev' \
-    RUNAPKREQ='ca-certificates python py-libxml2 py-lxml unrar' \
+    RUNAPKREQ='ca-certificates python py-libxml2 py-lxml unrar openssl' \
     RUNPIPREQ='pyopenssl cheetah requirements' 
 
 ### Install Application
