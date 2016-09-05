@@ -5,20 +5,31 @@ MAINTAINER DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
-    TERM='xterm' \
-    BLDAPKREQ='make gcc g++ python-dev py-pip openssl-dev libffi-dev' \
-    RUNAPKREQ='ca-certificates python py-libxml2 py-lxml unrar su-exec git' \
-    RUNPIPREQ='pyopenssl cheetah requirements'
+    TERM='xterm' 
 
 ### Install Application
 RUN apk --no-cache upgrade && \
-    apk --no-cache add \
-      ${BLDAPKREQ} \
-      ${RUNAPKREQ} && \
+    apk add --no-cache --virtual=build-deps \
+      make \
+      gcc \
+      g++ \
+      python-dev \
+      py-pip \
+      openssl-dev \
+      libffi-dev && \
+    apk add --no-cache --virtual=run-deps \
+      ca-certificates \
+      python \ 
+      py-libxml2 \
+      py-lxml \
+      unrar  \
+      su-exec \
+      git && \
     pip --no-cache-dir install --upgrade setuptools && \
-    pip --no-cache-dir install --upgrade ${RUNPIPREQ} && \
+    pip --no-cache-dir install --upgrade pyopenssl cheetah requirements && \
     git clone --depth 1 https://github.com/SickRage/SickRage.git /opt/sickrage && \
-    apk --no-cache del ${BLDAPKREQ} && \
+    apk del --no-cache --purge \
+      build-deps  && \
     rm -rf /opt/sickrage/.git* \
            /tmp/* \
            /var/cache/apk/*  \
