@@ -1,7 +1,7 @@
 # docker-alp-sickrage
 Install sickrage into an Alpine container
 
-![sickrage](https://github.com/SiCKRAGETV/SiCKRAGE/blob/master/sickrage/core/webserver/gui/default/images/logo.png)
+![sickrage](https://sickrage.github.io/images/logo.png)
 
 ## Description
 
