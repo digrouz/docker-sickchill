@@ -22,7 +22,7 @@ https://sickrage.github.io/
 
 ## Environment Variables
 
-When you start the `mariadb` image, you can adjust the configuration of the MariaDB instance by passing one or more environment variables on the `docker run` command line. Do note that none of the variables below will have any effect if you start the container with a data directory that already contains a database: any pre-existing database will always be left untouched on container startup.
+When you start the `sickrage` image, you can adjust the configuration of the `sickrage` instance by passing one or more environment variables on the `docker run` command line.
 
 ### `DOCKUID`
 
