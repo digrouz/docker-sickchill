@@ -49,7 +49,7 @@ ConfigureUser
 if [ "$1" = 'sickrage' ]; then
     /bin/chown -R "${MYUSER}":"${MYUSER}" /config /opt/sickrage
     /bin/chmod -R g+w /config /opt/sickrage
-    exec /sbin/su-exec "${MYUSER}" /usr/bin/python /opt/sickrage/SickBeard.py --nolaunch --datadir=/config/ --config=/config/config.ini "$@"
+    exec /sbin/su-exec "${MYUSER}" /usr/bin/python /opt/sickrage/SickBeard.py --nolaunch --datadir=/config/ --config=/config/config.ini
 fi
 
 exec "$@"
