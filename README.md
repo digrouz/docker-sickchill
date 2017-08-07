@@ -18,6 +18,7 @@ https://sickrage.github.io/
       -v <path to anime library>:/animes \ 
       -e DOCKUID=<UID default:10000> \
       -e DOCKGID=<GID default:10000> \
+      -e DOCKUPGRADE=<0|1> \
       -p 8081:8081 digrouz/docker-alp-sickrage
 
 ## Environment Variables
@@ -31,3 +32,11 @@ This variable is not mandatory and specifies the user id that will be set to run
 ### `DOCKGID`
 
 This variable is not mandatory and specifies the group id that will be set to run the application. It has default value `10000`.
+
+### `DOCKUPGRADE`
+
+This variable is not mandatory and specifies if the container has to launch software update at startup or not. Valid values are `0` and `1`. It has default value `1`.
+
+## Notes
+
+* The docker entrypoint will upgrade operating system at each startup. To disable this feature, just add `-e DOCKUPGRADE=0` at container creation.
