@@ -26,7 +26,7 @@ RUN apk --no-cache upgrade && \
       git && \
     pip --no-cache-dir install --upgrade setuptools && \
     pip --no-cache-dir install --upgrade pyopenssl cheetah requirements && \
-    git clone --depth 1 https://donna.devices.wvvw.me/sickrage/sickrage.git /opt/sickrage && \
+    git clone --depth 1 https://github.com/SickRage/SickRage.git /opt/sickrage && \
     apk del --no-cache --purge \
       build-deps  && \
     rm -rf /opt/sickrage/.git* \
