@@ -17,6 +17,7 @@ RUN apk --no-cache upgrade && \
       libressl-dev \
       libffi-dev && \
     apk add --no-cache --virtual=run-deps \
+      bash \
       ca-certificates \
       python \ 
       py-libxml2 \
