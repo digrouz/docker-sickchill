@@ -157,13 +157,13 @@ AutoUpgrade
 ConfigureUser
 
 if [ "$1" == 'sickrage' ]; then
-  Docklog "Fixing permissions on /config /opt/sickrage"
+  DockLog "Fixing permissions on /config /opt/sickrage"
   chown -R "${MYUSER}":"${MYUSER}" /config /opt/sickrage
   chmod -R g+w /config /opt/sickrage
-  Docklog "Starting app: ${1}"
+  DockLog "Starting app: ${1}"
   exec su-exec "${MYUSER}" python /opt/sickrage/SickBeard.py --nolaunch --datadir=/config/ --config=/config/config.ini
 else
-  Docklog "Starting app: ${@}"
+  DockLog "Starting app: ${@}"
   exec "$@"
 fi
 
