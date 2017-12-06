@@ -3,7 +3,7 @@ Install sickrage into a Linux container
 
 ![sickrage](https://sickrage.github.io/images/logo.png)
 
-## Version
+## Tag
 Several tag are available:
 * latest: see alpine3.6
 * centos7: [centos7/Dokerfile](https://github.com/digrouz/docker-sickrage/blob/centos7/Dockerfile)
@@ -46,3 +46,7 @@ This variable is not mandatory and specifies if the container has to launch soft
 ## Notes
 
 * The docker entrypoint can upgrade operating system at each startup. To enable this feature, just add `-e DOCKUPGRADE=1` at container creation.
+
+## `ISSUES`
+
+If you encounter an issue please open a ticket at [github](https://github.com/digrouz/docker-sickrage/issues)
