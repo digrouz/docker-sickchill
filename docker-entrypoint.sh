@@ -20,25 +20,27 @@ DectectOS(){
 }
 
 AutoUpgrade(){
-  if [ -n "${DOCKUPGRADE}" ]; then
-    MYUPGRADE="${DOCKUPGRADE}"
-  fi
-  if [ "${MYUPGRADE}" == 1 ]; then
-    if [ "${OS}" == "alpine" ]; then
-      apk --no-cache upgrade
-      rm -rf /var/cache/apk/*
-    elif [ "${OS}" == "ubuntu" ]; then
-      export DEBIAN_FRONTEND=noninteractive
-      apt-get update
-      apt-get -y --no-install-recommends dist-upgrade
-      apt-get -y autoclean
-      apt-get -y clean
-      apt-get -y autoremove
-      rm -rf /var/lib/apt/lists/*
-    elif [ "${OS}" == "centos" ]; then
-      yum upgrade -y
-      yum clean all
-      rm -rf /var/cache/yum/*
+  if [ "$(id -u)" = '0' ]; then
+    if [ -n "${DOCKUPGRADE}" ]; then
+      MYUPGRADE="${DOCKUPGRADE}"
+    fi
+    if [ "${MYUPGRADE}" == 1 ]; then
+      if [ "${OS}" == "alpine" ]; then
+        apk --no-cache upgrade
+        rm -rf /var/cache/apk/*
+      elif [ "${OS}" == "ubuntu" ]; then
+        export DEBIAN_FRONTEND=noninteractive
+        apt-get update
+        apt-get -y --no-install-recommends dist-upgrade
+        apt-get -y autoclean
+        apt-get -y clean
+        apt-get -y autoremove
+        rm -rf /var/lib/apt/lists/*
+      elif [ "${OS}" == "centos" ]; then
+        yum upgrade -y
+        yum clean all
+        rm -rf /var/cache/yum/*
+      fi
     fi
   fi
 }
@@ -66,81 +68,83 @@ file_env() {
 }
 
 ConfigureUser () {
-  # Managing user
-  if [ -n "${DOCKUID}" ]; then
-    MYUID="${DOCKUID}"
-  fi
-  # Managing group
-  if [ -n "${DOCKGID}" ]; then
-    MYGID="${DOCKGID}"
-  fi
-  local OLDHOME
-  local OLDGID
-  local OLDUID
-  if grep -q "${MYUSER}" /etc/passwd; then
-    OLDUID=$(id -u "${MYUSER}")
-  fi
-  if grep -q "${MYUSER}" /etc/group; then
+  if [ "$(id -u)" = '0' ]; then
+    # Managing user
+    if [ -n "${DOCKUID}" ]; then
+      MYUID="${DOCKUID}"
+    fi
+    # Managing group
+    if [ -n "${DOCKGID}" ]; then
+      MYGID="${DOCKGID}"
+    fi
+    local OLDHOME
+    local OLDGID
+    local OLDUID
+    if grep -q "${MYUSER}" /etc/passwd; then
+      OLDUID=$(id -u "${MYUSER}")
+    fi
+    if grep -q "${MYUSER}" /etc/group; then
       OLDGID=$(id -g "${MYUSER}")
-  fi
-  if [ "${MYUID}" != "${OLDUID}" ]; then
-    OLDHOME=$(grep "$MYUSER" /etc/passwd | awk -F: '{print $6}')
-    if [ "${OS}" == "alpine" ]; then
-      deluser "${MYUSER}"
-    else
-      userdel "${MYUSER}"
     fi
-    DockLog "Deleted user ${MYUSER}"
-  fi
-  if grep -q "${MYUSER}" /etc/group; then
-    if [ "${MYGID}" != "${OLDGID}" ]; then
+    if [ -n "${OLDUID}" ] && [ "${MYUID}" != "${OLDUID}" ]; then
+      OLDHOME=$(grep "$MYUSER" /etc/passwd | awk -F: '{print $6}')
       if [ "${OS}" == "alpine" ]; then
-        delgroup "${MYUSER}"
+        deluser "${MYUSER}"
       else
-        groupdel "${MYUSER}"
+        userdel "${MYUSER}"
       fi
-      DockLog "Deleted group ${MYUSER}"
+      DockLog "Deleted user ${MYUSER}"
     fi
-  fi
-  if ! grep -q "${MYUSER}" /etc/group; then
-    if [ "${OS}" == "alpine" ]; then
-      addgroup -S -g "${MYGID}" "${MYUSER}"
-    else
-      groupadd -r -g "${MYGID}" "${MYUSER}"
+    if grep -q "${MYUSER}" /etc/group; then
+      if [ "${MYGID}" != "${OLDGID}" ]; then
+        if [ "${OS}" == "alpine" ]; then
+          delgroup "${MYUSER}"
+        else
+          groupdel "${MYUSER}"
+        fi
+        DockLog "Deleted group ${MYUSER}"
+      fi
     fi
-    DockLog "Created group ${MYUSER}"
-  fi
-  if ! grep -q "${MYUSER}" /etc/passwd; then
-    if [ -z "${OLDHOME}" ]; then
-      OLDHOME="/home/${MYUSER}"
-      mkdir "${OLDHOME}"
-      DockLog "Created home directory ${OLDHOME}"
+    if ! grep -q "${MYUSER}" /etc/group; then
+      if [ "${OS}" == "alpine" ]; then
+        addgroup -S -g "${MYGID}" "${MYUSER}"
+      else
+        groupadd -r -g "${MYGID}" "${MYUSER}"
+      fi
+      DockLog "Created group ${MYUSER}"
     fi
-    if [ "${OS}" == "alpine" ]; then
-      adduser -S -D -H -s /sbin/nologin -G "${MYUSER}" -h "${OLDHOME}" -u "${MYUID}" "${MYUSER}"
-    else
-      useradd --system --shell /sbin/nologin --gid "${MYGID}" --home-dir "${OLDHOME}" --uid "${MYUID}" "${MYUSER}"
-    fi
-    DockLog "Created user ${MYUSER}"
+    if ! grep -q "${MYUSER}" /etc/passwd; then
+      if [ -z "${OLDHOME}" ]; then
+        OLDHOME="/home/${MYUSER}"
+        mkdir "${OLDHOME}"
+        DockLog "Created home directory ${OLDHOME}"
+      fi
+      if [ "${OS}" == "alpine" ]; then
+        adduser -S -D -H -s /sbin/nologin -G "${MYUSER}" -h "${OLDHOME}" -u "${MYUID}" "${MYUSER}"
+      else
+        useradd --system --shell /sbin/nologin --gid "${MYGID}" --home-dir "${OLDHOME}" --uid "${MYUID}" "${MYUSER}"
+      fi
+      DockLog "Created user ${MYUSER}"
 
-  fi
-  if [ -n "${OLDUID}" ] && [ "${DOCKUID}" != "${OLDUID}" ]; then
-    DockLog "Fixing permissions for user ${MYUSER}"
-    find / -user "${OLDUID}" -exec chown ${MYUSER} {} \; &> /dev/null
-    if [ "${OLDHOME}" == "/home/${MYUSER}" ]; then
-      chown -R "${MYUSER}" "${OLDHOME}"
-      chmod -R u+rwx "${OLDHOME}"
     fi
-    DockLog "... done!"
-  fi
-  if [ -n "${OLDGID}" ] && [ "${DOCKGID}" != "${OLDGID}" ]; then
-    DockLog "Fixing permissions for group ${MYUSER}"
-    find / -group "${OLDGID}" -exec chgrp ${MYUSER} {} \; &> /dev/null
-    if [ "${OLDHOME}" == "/home/${MYUSER}" ]; then
-      chown -R :"${MYUSER}" "${OLDHOME}"
-      chmod -R ga-rwx "${OLDHOME}"
+    if [ -n "${OLDUID}" ] && [ "${MYUID}" != "${OLDUID}" ]; then
+      DockLog "Fixing permissions for user ${MYUSER}"
+      find / -user "${OLDUID}" -exec chown ${MYUSER} {} \; &> /dev/null
+      if [ "${OLDHOME}" == "/home/${MYUSER}" ]; then
+        chown -R "${MYUSER}" "${OLDHOME}"
+        chmod -R u+rwx "${OLDHOME}"
+      fi
+      DockLog "... done!"
     fi
-    DockLog "... done!"
+    if [ -n "${OLDGID}" ] && [ "${MYGID}" != "${OLDGID}" ]; then
+      DockLog "Fixing permissions for group ${MYUSER}"
+      find / -group "${OLDGID}" -exec chgrp ${MYUSER} {} \; &> /dev/null
+      if [ "${OLDHOME}" == "/home/${MYUSER}" ]; then
+        chown -R :"${MYUSER}" "${OLDHOME}"
+        chmod -R ga-rwx "${OLDHOME}"
+      fi
+      DockLog "... done!"
+    fi
   fi
 }
 
