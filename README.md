@@ -1,4 +1,4 @@
-# docker-alp-sickrage
+# docker-sickrage
 Install sickrage into a Linux container
 
 ![sickrage](https://sickrage.github.io/images/logo.png)
