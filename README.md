@@ -47,6 +47,6 @@ This variable is not mandatory and specifies if the container has to launch soft
 
 * The docker entrypoint can upgrade operating system at each startup. To enable this feature, just add `-e DOCKUPGRADE=1` at container creation.
 
-## `ISSUES`
+## Issues
 
 If you encounter an issue please open a ticket at [github](https://github.com/digrouz/docker-sickrage/issues)
