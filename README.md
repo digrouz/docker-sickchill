@@ -1,7 +1,13 @@
-# docker-alp-sickrage
-Install sickrage into an Alpine container
+# docker-sickrage
+Install sickrage into a Linux container
 
 ![sickrage](https://sickrage.github.io/images/logo.png)
+
+## Version
+Several tag are available:
+* latest: see alpine3.6
+* centos7: [centos7/Dokerfile](https://github.com/digrouz/docker-sickrage/blob/centos7/Dockerfile)
+* alpine3.6: [alpine3.6/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.6/Dockerfile)
 
 ## Description
 
@@ -19,7 +25,7 @@ https://sickrage.github.io/
       -e DOCKUID=<UID default:10000> \
       -e DOCKGID=<GID default:10000> \
       -e DOCKUPGRADE=<0|1> \
-      -p 8081:8081 digrouz/docker-alp-sickrage
+      -p 8081:8081 digrouz/sickrage
 
 ## Environment Variables
 
@@ -35,8 +41,8 @@ This variable is not mandatory and specifies the group id that will be set to ru
 
 ### `DOCKUPGRADE`
 
-This variable is not mandatory and specifies if the container has to launch software update at startup or not. Valid values are `0` and `1`. It has default value `1`.
+This variable is not mandatory and specifies if the container has to launch software update at startup or not. Valid values are `0` and `1`. It has default value `0`.
 
 ## Notes
 
-* The docker entrypoint will upgrade operating system at each startup. To disable this feature, just add `-e DOCKUPGRADE=0` at container creation.
+* The docker entrypoint can upgrade operating system at each startup. To enable this feature, just add `-e DOCKUPGRADE=1` at container creation.
