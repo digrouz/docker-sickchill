@@ -145,7 +145,7 @@ ConfigureUser () {
 }
 
 DockLog(){
-  if [ "${OS}" == "centos" ]; then
+  if [ "${OS}" == "centos" ] || [ "${OS}" == "alpine" ]; then
     echo "${1}"
   else
     logger "${1}"
