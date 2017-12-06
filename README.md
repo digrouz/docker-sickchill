@@ -25,7 +25,7 @@ https://sickrage.github.io/
       -e DOCKUID=<UID default:10000> \
       -e DOCKGID=<GID default:10000> \
       -e DOCKUPGRADE=<0|1> \
-      -p 8081:8081 digrouz/sickrage
+      -p 8081:8081 digrouz/sickrage:alpine3.6
 
 ## Environment Variables
 
