@@ -22,11 +22,12 @@ RUN apk --no-cache upgrade && \
       python \ 
       py-libxml2 \
       py-lxml \
+      nodejs \
       unrar  \
       su-exec \
       git && \
     pip --no-cache-dir install --upgrade setuptools && \
-    pip --no-cache-dir install --upgrade pyopenssl cheetah requirements && \
+    pip --no-cache-dir install --upgrade pyopenssl cheetah requirements cfscrape && \
     git clone --depth 1 https://github.com/SickRage/SickRage.git /opt/sickrage && \
     apk del --no-cache --purge \
       build-deps  && \
