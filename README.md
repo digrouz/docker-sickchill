@@ -5,7 +5,7 @@ Install sickrage into a Linux container
 
 ## Tag
 Several tag are available:
-* latest: see alpine3.6
+* latest: see alpine3.7
 * centos7: [centos7/Dokerfile](https://github.com/digrouz/docker-sickrage/blob/centos7/Dockerfile)
 * alpine3.6: [alpine3.6/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.6/Dockerfile)
 * alpine3.7: [alpine3.7/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.7/Dockerfile)
@@ -26,7 +26,7 @@ https://sickrage.github.io/
       -e DOCKUID=<UID default:10000> \
       -e DOCKGID=<GID default:10000> \
       -e DOCKUPGRADE=<0|1> \
-      -p 8081:8081 digrouz/sickrage:alpine3.6
+      -p 8081:8081 digrouz/sickrage
 
 ## Environment Variables
 
