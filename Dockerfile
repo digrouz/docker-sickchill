@@ -14,14 +14,13 @@ RUN apk --no-cache upgrade && \
       g++ \
       python-dev \
       py2-pip \
+      libxslt-dev \
       libressl-dev \
       libffi-dev && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
       python \ 
-      py-libxml2 \
-      py-lxml \
       nodejs \
       unrar  \
       su-exec \
