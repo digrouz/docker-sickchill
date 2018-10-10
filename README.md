@@ -9,6 +9,7 @@ Several tag are available:
 * centos7: [centos7/Dokerfile](https://github.com/digrouz/docker-sickrage/blob/centos7/Dockerfile)
 * alpine3.6: [alpine3.6/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.6/Dockerfile)
 * alpine3.7: [alpine3.7/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.7/Dockerfile)
+* alpine3.8: [alpine3.7/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.8/Dockerfile)
 
 ## Description
 
