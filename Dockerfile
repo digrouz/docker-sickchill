@@ -13,7 +13,6 @@ RUN apk --no-cache upgrade && \
       gcc \
       g++ \
       python-dev \
-      py2-pip \
       libxslt-dev \
       linux-headers \
       libressl-dev \
@@ -22,6 +21,7 @@ RUN apk --no-cache upgrade && \
       bash \
       ca-certificates \
       python \ 
+      py2-pip \
       libffi \
       libxslt \
       nodejs \
