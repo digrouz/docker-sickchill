@@ -15,6 +15,7 @@ RUN apk --no-cache upgrade && \
       python-dev \
       py2-pip \
       libxslt-dev \
+      linux-headers \
       libressl-dev \
       libffi-dev && \
     apk add --no-cache --virtual=run-deps \
