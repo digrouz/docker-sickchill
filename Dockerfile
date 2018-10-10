@@ -22,6 +22,8 @@ RUN apk --no-cache upgrade && \
       bash \
       ca-certificates \
       python \ 
+      libffi \
+      libxslt \
       nodejs \
       unrar  \
       su-exec \
