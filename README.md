@@ -1,7 +1,7 @@
 # docker-sickrage
 Install sickrage into a Linux container
 
-![sickrage](https://sickrage.github.io/images/logo.png)
+![sickrage](https://camo.githubusercontent.com/bce5fd2bd5e902ca3159506016a2aeded9b45868/68747470733a2f2f7369636b726167652e63612f696d672f6c6f676f2d737461636b65642e706e67)
 
 ## Tag
 Several tag are available:
