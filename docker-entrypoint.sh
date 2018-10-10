@@ -165,7 +165,7 @@ if [ "$1" == 'sickrage' ]; then
   chown -R "${MYUSER}":"${MYUSER}" /config /opt/sickrage
   chmod -R g+w /config /opt/sickrage
   DockLog "Starting app: ${1}"
-  exec su-exec "${MYUSER}" python /opt/sickrage/SickBeard.py --nolaunch --datadir=/config/ --config=/config/config.ini
+  exec su-exec "${MYUSER}" python /opt/sickrage/SiCKRAGE.py --nolaunch --datadir=/config/ --config=/config/config.ini
 else
   DockLog "Starting app: ${@}"
   exec "$@"
