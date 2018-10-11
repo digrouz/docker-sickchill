@@ -13,27 +13,24 @@ RUN apk --no-cache upgrade && \
       gcc \
       g++ \
       python-dev \
-      libxslt-dev \
-      linux-headers \
+      py2-pip \
       libressl-dev \
       libffi-dev \
-      mercurial \
     && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
       python \ 
-      py2-pip \
-      libffi \
-      libxslt \
+      py-libxml2 \
+      py-lxml \
       nodejs \
       unrar  \
       su-exec \
       git \
     && \
+    pip --no-cache-dir install --upgrade setuptools && \
+    pip --no-cache-dir install --upgrade pyopenssl cheetah requirements cfscrape && \
     git clone --depth 1 https://github.com/SickChill/SickChill.git /opt/sickrage && \
-    pip --no-cache-dir install --upgrade setuptools pip && \
-    pip --no-cache-dir install --upgrade -r /opt/sickrage/requirements/requirements.txt && \
     apk del --no-cache --purge \
       build-deps  && \
     rm -rf /opt/sickrage/.git* \
