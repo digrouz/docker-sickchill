@@ -16,7 +16,9 @@ RUN apk --no-cache upgrade && \
       libxslt-dev \
       linux-headers \
       libressl-dev \
-      libffi-dev && \
+      libffi-dev \
+      mercurial \
+    && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
@@ -27,7 +29,8 @@ RUN apk --no-cache upgrade && \
       nodejs \
       unrar  \
       su-exec \
-      git && \
+      git \
+    && \
     git clone --depth 1 https://github.com/SickChill/SickChill.git /opt/sickrage && \
     pip --no-cache-dir install --upgrade setuptools pip && \
     pip --no-cache-dir install --upgrade -r /opt/sickrage/requirements/requirements.txt && \
