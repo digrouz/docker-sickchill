@@ -28,7 +28,7 @@ RUN apk --no-cache upgrade && \
       unrar  \
       su-exec \
       git && \
-    git clone --depth 1 https://git.sickrage.ca/SiCKRAGE/sickrage.git /opt/sickrage && \
+    git clone --depth 1 https://github.com/SickChill/SickChill.git /opt/sickrage && \
     pip --no-cache-dir install --upgrade setuptools pip && \
     pip --no-cache-dir install --upgrade -r /opt/sickrage/requirements.txt && \
     apk del --no-cache --purge \
