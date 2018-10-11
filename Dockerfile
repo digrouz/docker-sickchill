@@ -30,7 +30,7 @@ RUN apk --no-cache upgrade && \
       git && \
     git clone --depth 1 https://github.com/SickChill/SickChill.git /opt/sickrage && \
     pip --no-cache-dir install --upgrade setuptools pip && \
-    pip --no-cache-dir install --upgrade -r /opt/sickrage/requirements.txt && \
+    pip --no-cache-dir install --upgrade -r /opt/sickrage/requirements/requirements.txt && \
     apk del --no-cache --purge \
       build-deps  && \
     rm -rf /opt/sickrage/.git* \
