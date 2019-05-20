@@ -1,0 +1,69 @@
+FROM centos:7
+LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+
+### Environment variables
+ENV LANG='en_US.UTF-8' \
+    LANGUAGE='en_US.UTF-8' \
+    TERM='xterm' \
+    GIT_BRANCH='master' \
+    APPUSER='sickchill' \
+    APPUID='10000' \
+    APPGID='10000'
+
+# Copy config files
+COPY root/ /
+
+### Install Application
+RUN set -x && \
+    chmod 1777 /tmp && \
+    . /usr/local/bin/docker-entrypoint-functions.sh && \
+    MYUSER=${APPUSER} && \
+    MYUID=${APPUID} && \
+    MYGID=${APPGID} && \
+    ConfigureUser && \
+    yum-config-manager --add-repo /tmp/custom.repo && \
+    yum install -y epel-release && \
+    yum update -y && \
+    yum install -y \
+      git \
+      gcc \
+      gcc-c++ \
+      python-devel \
+      python2-pip \
+      openssl-devel \
+      make \
+    && \
+    pip --no-cache-dir install --upgrade pyopenssl cheetah cfscrape && \
+    git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
+    yum history -y undo last && \
+    yum install -y \
+     ca-certificates \
+     python \
+     libxml2-python \
+     python-lxml \
+     unrar \
+     git \
+     nodejs \
+     su-exec \
+    && \
+    mkdir /docker-entrypoint.d && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
+    yum clean all && \
+    rm -rf /opt/sickchill/.git* \
+           /tmp/* \
+           /var/cache/yum/* \
+           /var/tmp/*
+
+### Volume
+VOLUME ["/config", "/downloads", "/tv", "/animes"]
+
+### Expose ports
+EXPOSE 8081
+
+### Running User: not used, managed by docker-entrypoint.sh
+#USER sickchill
+
+### Start Sickrage
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD ["sickchill"]
