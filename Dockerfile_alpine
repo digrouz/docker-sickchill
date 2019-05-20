@@ -4,10 +4,24 @@ LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
-    TERM='xterm' 
+    TERM='xterm'  \
+    GIT_BRANCH='master' \
+    APPUSER='sickchill' \
+    APPUID='10000' \
+    APPGID='10000'
+
+# Copy config files
+COPY root/ /
 
 ### Install Application
-RUN apk --no-cache upgrade && \
+RUN set -x && \
+    chmod 1777 /tmp && \
+    . /usr/local/bin/docker-entrypoint-functions.sh && \
+    MYUSER=${APPUSER} && \
+    MYUID=${APPUID} && \
+    MYGID=${APPGID} && \
+    ConfigureUser && \
+    apk --no-cache upgrade && \
     apk add --no-cache --virtual=build-deps \
       make \
       gcc \
@@ -29,11 +43,15 @@ RUN apk --no-cache upgrade && \
       git \
     && \
     pip --no-cache-dir install --upgrade setuptools && \
-    pip --no-cache-dir install --upgrade pyopenssl cheetah requirements cfscrape && \
-    git clone --depth 1 https://github.com/SickChill/SickChill.git /opt/sickrage && \
+    pip --no-cache-dir install --upgrade pyopenssl cheetah cfscrape && \
+    git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
     apk del --no-cache --purge \
-      build-deps  && \
-    rm -rf /opt/sickrage/.git* \
+      build-deps  \
+    && \
+    mkdir /docker-entrypoint.d && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
+    rm -rf /opt/sickchill/.git* \
            /tmp/* \
            /var/cache/apk/*  \
            /var/tmp/*
@@ -45,9 +63,8 @@ VOLUME ["/config", "/downloads", "/tv", "/animes"]
 EXPOSE 8081
 
 ### Running User: not used, managed by docker-entrypoint.sh
-#USER sickrage
+#USER sickchill
 
 ### Start Sickrage
-COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["sickrage"]
+CMD ["sickchill"]

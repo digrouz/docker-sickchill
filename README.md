@@ -1,24 +1,22 @@
-# docker-sickrage
-Install sickrage into a Linux container
+# docker-sickchill
+Install sickchill into a Linux container
 
-![sickrage](https://camo.githubusercontent.com/bce5fd2bd5e902ca3159506016a2aeded9b45868/68747470733a2f2f7369636b726167652e63612f696d672f6c6f676f2d737461636b65642e706e67)
+![sickchill](https://sickchill.github.io/images/logo.png)
 
 ## Tag
 Several tag are available:
-* latest: see alpine3.8
-* centos7: [centos7/Dokerfile](https://github.com/digrouz/docker-sickrage/blob/centos7/Dockerfile)
-* alpine3.6: [alpine3.6/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.6/Dockerfile)
-* alpine3.7: [alpine3.7/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.7/Dockerfile)
-* alpine3.8: [alpine3.8/Dockerfile](https://github.com/digrouz/docker-sickrage/blob/alpine3.8/Dockerfile)
+* latest: see alpine
+* centos7: [Dokerfile_centos7](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_centos7)
+* alpine: [Dockerfile_alpine](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_alpine)
 
 ## Description
 
-SickRage is an automatic Video Library Manager for TV Shows. It watches for new episodes of your favorite shows, and when they are posted it does its magic: automatic torrent/nzb searching, downloading, and processing at the qualities you want.
+SickChill is an automatic Video Library Manager for TV Shows. It watches for new episodes of your favorite shows, and when they are posted it does its magic: automatic torrent/nzb searching, downloading, and processing at the qualities you want.
 
-https://sickrage.github.io/
+https://sickchill.github.io/
 
 ## Usage
-    docker create --name=sickrage  \
+    docker create --name=sickchill  \
       -v /etc/localtime:/etc/localtime:ro \ 
       -v <path to config>:/config \
       -v <path to downloads>:/downloads \ 
@@ -27,11 +25,11 @@ https://sickrage.github.io/
       -e DOCKUID=<UID default:10000> \
       -e DOCKGID=<GID default:10000> \
       -e DOCKUPGRADE=<0|1> \
-      -p 8081:8081 digrouz/sickrage:latest
+      -p 8081:8081 digrouz/sickchill:latest
 
 ## Environment Variables
 
-When you start the `sickrage` image, you can adjust the configuration of the `sickrage` instance by passing one or more environment variables on the `docker run` command line.
+When you start the `sickchill` image, you can adjust the configuration of the `sickchill` instance by passing one or more environment variables on the `docker run` command line.
 
 ### `DOCKUID`
 
@@ -51,4 +49,4 @@ This variable is not mandatory and specifies if the container has to launch soft
 
 ## Issues
 
-If you encounter an issue please open a ticket at [github](https://github.com/digrouz/docker-sickrage/issues)
+If you encounter an issue please open a ticket at [github](https://github.com/digrouz/docker-sickchill/issues)
