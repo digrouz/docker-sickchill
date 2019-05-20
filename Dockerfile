@@ -28,7 +28,7 @@ RUN apk --no-cache upgrade && \
       su-exec \
       git \
     && \
-    pip --no-cache-dir install --upgrade setuptools && \
+    pip --no-cache-dir install --upgrade setuptools pip && \
     pip --no-cache-dir install --upgrade pyopenssl cheetah requirements cfscrape && \
     git clone --depth 1 https://github.com/SickChill/SickChill.git /opt/sickrage && \
     apk del --no-cache --purge \
