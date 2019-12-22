@@ -26,24 +26,26 @@ RUN set -x && \
       make \
       gcc \
       g++ \
-      python-dev \
+      python2-dev \
       py2-pip \
       libressl-dev \
       libffi-dev \
+      libxml2-dev\
+      libxslt-dev\
     && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
-      python \ 
-      py-libxml2 \
-      py-lxml \
+      python2 \ 
+      libxml2 \
+      libxslt \
       nodejs \
       unrar  \
       su-exec \
       git \
     && \
     pip --no-cache-dir install --upgrade setuptools && \
-    pip --no-cache-dir install --upgrade pyopenssl cheetah cfscrape && \
+    pip --no-cache-dir install --upgrade pyopenssl cheetah cfscrape lxml && \
     git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
     apk del --no-cache --purge \
       build-deps  \
