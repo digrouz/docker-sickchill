@@ -29,6 +29,7 @@ RUN set -x && \
       python2-dev \
       py2-pip \
       libressl-dev \
+      openssl-dev \
       libffi-dev \
       libxml2-dev\
       libxslt-dev\
@@ -39,10 +40,13 @@ RUN set -x && \
       python2 \ 
       libxml2 \
       libxslt \
+      libressl \
       nodejs \
       unrar  \
       su-exec \
       git \
+      mediainfo \
+      tzdata \
     && \
     pip --no-cache-dir install --upgrade setuptools && \
     pip --no-cache-dir install --upgrade pyopenssl cheetah cfscrape lxml && \
