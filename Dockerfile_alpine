@@ -49,7 +49,7 @@ RUN set -x && \
       tzdata \
     && \
     pip --no-cache-dir install --upgrade setuptools && \
-    pip --no-cache-dir install --upgrade pyopenssl cheetah cfscrape lxml && \
+    pip --no-cache-dir install --upgrade pyopenssl && \
     git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
     apk del --no-cache --purge \
       build-deps  \
