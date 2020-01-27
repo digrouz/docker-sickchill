@@ -33,7 +33,7 @@ RUN set -x && \
       openssl-devel \
       make \
     && \
-    pip --no-cache-dir install --upgrade pyopenssl cheetah cfscrape && \
+    pip --no-cache-dir install --upgrade pyopenssl && \
     git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
     yum history -y undo last && \
     yum install -y \
