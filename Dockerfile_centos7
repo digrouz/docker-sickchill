@@ -28,19 +28,19 @@ RUN set -x && \
       git \
       gcc \
       gcc-c++ \
-      python-devel \
-      python2-pip \
+      python3-devel \
+      python3-pip \
       openssl-devel \
       make \
     && \
-    pip --no-cache-dir install --upgrade pyopenssl && \
+    pip3 --no-cache-dir install --upgrade pyopenssl && \
     git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
     yum history -y undo last && \
     yum install -y \
      ca-certificates \
-     python \
+     python3 \
      libxml2-python \
-     python-lxml \
+     python3-lxml \
      unrar \
      git \
      nodejs \
