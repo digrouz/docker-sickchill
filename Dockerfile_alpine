@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM alpine:3.12
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
 ### Environment variables
@@ -26,8 +26,8 @@ RUN set -x && \
       make \
       gcc \
       g++ \
-      python2-dev \
-      py2-pip \
+      python3-dev \
+      py3-pip \
       libressl-dev \
       openssl-dev \
       libffi-dev \
@@ -37,7 +37,7 @@ RUN set -x && \
     apk add --no-cache --virtual=run-deps \
       bash \
       ca-certificates \
-      python2 \ 
+      python3 \ 
       libxml2 \
       libxslt \
       libressl \
