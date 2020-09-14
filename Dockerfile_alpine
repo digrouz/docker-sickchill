@@ -48,8 +48,8 @@ RUN set -x && \
       mediainfo \
       tzdata \
     && \
-    pip --no-cache-dir install --upgrade setuptools && \
-    pip --no-cache-dir install --upgrade pyopenssl && \
+    pip3 --no-cache-dir install --upgrade setuptools && \
+    pip3 --no-cache-dir install --upgrade pyopenssl && \
     git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
     apk del --no-cache --purge \
       build-deps  \
