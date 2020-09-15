@@ -50,6 +50,8 @@ RUN set -x && \
      unrar \
      nodejs \
      su-exec \
+     curl \
+     jq \
     && \
     mkdir -p /docker-entrypoint.d && \
     chmod +x /usr/local/bin/docker-entrypoint.sh && \

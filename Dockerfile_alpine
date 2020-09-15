@@ -39,8 +39,10 @@ RUN set -x && \
     && \
     apk add --no-cache --virtual=run-deps \
       bash \
+      curl \
       ca-certificates \
       python3 \
+      jq \
       libxml2 \
       libxslt \
       libressl \
