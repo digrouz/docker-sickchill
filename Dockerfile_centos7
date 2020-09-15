@@ -1,14 +1,16 @@
 FROM centos:7
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
+ARG SICKCHILL_VERSION='2020.09.14-2'
+
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
     TERM='xterm' \
-    GIT_BRANCH='master' \
     APPUSER='sickchill' \
     APPUID='10000' \
-    APPGID='10000'
+    APPGID='10000' \
+    SICKCHILL_VERSION="${SICKCHILL_VERSION}"
 
 # Copy config files
 COPY root/ /
@@ -32,9 +34,13 @@ RUN set -x && \
       python3-pip \
       openssl-devel \
       make \
+      curl \
     && \
     pip3 --no-cache-dir install --upgrade pyopenssl && \
-    git clone --depth 1 --branch ${GIT_BRANCH} https://github.com/SickChill/SickChill.git /opt/sickchill && \
+    curl -sL https://github.com/SickChill/SickChill/archive/v${SICKCHILL_VERSION}.tar.gz -o /tmp/sickchill.tar.gz && \
+    cd /tmp && \
+    tar xzf /tmp/sickchill.tar.gz && \
+    mv /tmp/SickChill-${SICKCHILL_VERSION} /opt/sickchill && \
     yum history -y undo last && \
     yum install -y \
      ca-certificates \
@@ -42,7 +48,6 @@ RUN set -x && \
      libxml2-python \
      python3-lxml \
      unrar \
-     git \
      nodejs \
      su-exec \
     && \
