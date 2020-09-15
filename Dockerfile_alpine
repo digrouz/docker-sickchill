@@ -59,7 +59,7 @@ RUN set -x && \
     apk del --no-cache --purge \
       build-deps  \
     && \
-    mkdir /docker-entrypoint.d && \
+    mkdir -p /docker-entrypoint.d && \
     chmod +x /usr/local/bin/docker-entrypoint.sh && \
     ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
     rm -rf /opt/sickchill/.git* \
