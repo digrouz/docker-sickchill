@@ -1,7 +1,7 @@
 FROM alpine:3.12
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG SICKCHILL_VERSION='2020.09.22-2'
+ARG SICKCHILL_VERSION='2020.09.22-5'
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
