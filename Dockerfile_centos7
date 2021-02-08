@@ -35,7 +35,9 @@ RUN set -x && \
       openssl-devel \
       make \
       curl \
+      cargo \
     && \
+    pip3 --no-cache-dir install --upgrade setuptools pip && \
     pip3 --no-cache-dir install --upgrade pyopenssl && \
     curl -sL https://github.com/SickChill/SickChill/archive/v${SICKCHILL_VERSION}.tar.gz -o /tmp/sickchill.tar.gz && \
     cd /tmp && \
