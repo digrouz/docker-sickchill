@@ -62,8 +62,9 @@ RUN set -x && \
     rm -rf /opt/sickchill/.git* \
            /tmp/* \
            /var/cache/yum/* \
-           /var/tmp/*
-
+           /var/tmp/* \
+           ${HOME}/.cache \
+	       ${HOME}/.cargo
 ### Volume
 VOLUME ["/config", "/downloads", "/tv", "/animes"]
 
