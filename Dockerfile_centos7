@@ -1,7 +1,7 @@
 FROM centos:7
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG SICKCHILL_VERSION='2021.03.28-3'
+ARG SICKCHILL_VERSION='2021.04.05-1'
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
