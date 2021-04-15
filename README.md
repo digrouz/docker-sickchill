@@ -1,3 +1,5 @@
+[![auto-update-workflow](https://github.com/digrouz/docker-sickchill/actions/workflows/auto-update.yml/badge.svg)](https://github.com/digrouz/docker-sickchill/actions/workflows/auto-update.yml)
+
 # docker-sickchill
 Install sickchill into a Linux container
 
