@@ -1,7 +1,7 @@
 FROM alpine:3.14
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
-ARG SICKCHILL_VERSION='2021.07.14-3'
+ARG SICKCHILL_VERSION='2021.07.14-6'
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
@@ -54,7 +54,7 @@ RUN set -x && \
     && \
     pip3 --no-cache-dir install --upgrade setuptools && \
     pip3 --no-cache-dir install --upgrade pyopenssl && \
-    curl -sL https://github.com/SickChill/SickChill/archive/v${SICKCHILL_VERSION}.tar.gz -o /tmp/sickchill.tar.gz && \
+    curl -sL https://github.com/SickChill/SickChill/archive/${SICKCHILL_VERSION}.tar.gz -o /tmp/sickchill.tar.gz && \
     cd /tmp && \
     tar xzf /tmp/sickchill.tar.gz && \
     mv /tmp/SickChill-${SICKCHILL_VERSION} /opt/sickchill && \
