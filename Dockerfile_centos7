@@ -1,7 +1,20 @@
+ARG SICKCHILL_VERSION='2021.07.23-1'
+
+FROM centos:7 AS su-exec-builder
+
+RUN set -x && \
+    yum update -y && \
+    yum install -y \
+      gcc \
+      make \
+      git \
+    && \
+    git clone --depth 1 https://github.com/ncopa/su-exec.git /opt/su-exec && \
+    cd /opt/su-exec && \
+    make
+    
 FROM centos:7
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
-
-ARG SICKCHILL_VERSION='2021.07.14-3'
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
@@ -13,6 +26,7 @@ ENV LANG='en_US.UTF-8' \
     SICKCHILL_VERSION="${SICKCHILL_VERSION}"
 
 # Copy config files
+COPY --from=su-exec-builder /opt/su-exec/su-exec /usr/local/bin/su-exec
 COPY root/ /
 
 ### Install Application
@@ -23,7 +37,6 @@ RUN set -x && \
     MYUID=${APPUID} && \
     MYGID=${APPGID} && \
     ConfigureUser && \
-    yum-config-manager --add-repo /tmp/custom.repo && \
     yum install -y epel-release && \
     yum update -y && \
     yum install -y \
@@ -37,23 +50,32 @@ RUN set -x && \
       curl \
       cargo \
     && \
-    pip3 --no-cache-dir install --upgrade setuptools pip && \
-    pip3 --no-cache-dir install --upgrade pyopenssl && \
-    curl -sL https://github.com/SickChill/SickChill/archive/v${SICKCHILL_VERSION}.tar.gz -o /tmp/sickchill.tar.gz && \
-    cd /tmp && \
-    tar xzf /tmp/sickchill.tar.gz && \
-    mv /tmp/SickChill-${SICKCHILL_VERSION} /opt/sickchill && \
+    pip3 --no-cache-dir install --upgrade \
+      pip \
+      setuptools \
+      virtualenv \
+      wheel \
+    && \
+    mkdir /opt/sickchill && \
+    virtualenv /opt/sickchill && \
+    . /opt/sickchill/bin/activate && \
+    pip3 --no-cache-dir install --upgrade \
+      sickchill==${SICKCHILL_VERSION} \
+    && \
     yum history -y undo last && \
     yum install -y \
+     bash \
      ca-certificates \
-     python3 \
-     libxml2-python \
-     python3-lxml \
-     unrar \
-     nodejs \
-     su-exec \
      curl \
      jq \
+     libffi \
+     libxml2-python \
+     mediainfo \
+     nodejs \
+     python3 \
+     python3-lxml \
+     python3-pip \
+     unrar \
     && \
     mkdir -p /docker-entrypoint.d && \
     chmod +x /usr/local/bin/docker-entrypoint.sh && \
@@ -64,7 +86,8 @@ RUN set -x && \
            /var/cache/yum/* \
            /var/tmp/* \
            ${HOME}/.cache \
-	       ${HOME}/.cargo
+           ${HOME}/.local \
+           ${HOME}/.cargo
 ### Volume
 VOLUME ["/config", "/downloads", "/tv", "/animes"]
 

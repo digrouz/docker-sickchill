@@ -16,7 +16,8 @@ if [ "$1" == 'sickchill' ]; then
   chmod -R g+w /config /opt/sickchill
   RunDropletEntrypoint
   DockLog "Starting app: ${1}"
-  exec su-exec "${MYUSER}" python3 /opt/sickchill/SickChill.py --nolaunch --datadir=/config/ --config=/config/config.ini
+  . /opt/sickchill/bin/activate
+  exec su-exec "${MYUSER}" python3 /opt/sickchill/bin/SickChill.py --nolaunch --datadir=/config/ --config=/config/config.ini
 else
   DockLog "Starting app: ${@}"
   exec "$@"

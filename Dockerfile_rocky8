@@ -1,18 +1,32 @@
-FROM alpine:3.14
-LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
-
 ARG SICKCHILL_VERSION='2021.07.23-1'
+
+FROM rockylinux/rockylinux:8 AS su-exec-builder
+
+RUN set -x && \
+    dnf update -y && \
+    dnf install -y \
+      gcc \
+      make \
+      git \
+    && \
+    git clone --depth 1 https://github.com/ncopa/su-exec.git /opt/su-exec && \
+    cd /opt/su-exec && \
+    make
+    
+FROM rockylinux/rockylinux:8
+LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
-    TERM='xterm'  \
+    TERM='xterm' \
     APPUSER='sickchill' \
     APPUID='10000' \
     APPGID='10000' \
     SICKCHILL_VERSION="${SICKCHILL_VERSION}"
 
 # Copy config files
+COPY --from=su-exec-builder /opt/su-exec/su-exec /usr/local/bin/su-exec
 COPY root/ /
 
 ### Install Application
@@ -23,40 +37,30 @@ RUN set -x && \
     MYUID=${APPUID} && \
     MYGID=${APPGID} && \
     ConfigureUser && \
-    apk --no-cache upgrade && \
-    apk add --no-cache --virtual=build-deps \
-      curl \
-      make \
-      gcc \
-      g++ \
-      python3-dev \
-      py3-pip \
-      openssl-dev \
-      cargo \
-      libffi-dev \
-      libxml2-dev\
-      libxslt-dev\
+    dnf install -y \
+      dnf-plugins-core \
     && \
-    apk add --no-cache --virtual=run-deps \
-      bash \
+    dnf config-manager --set-enabled powertools && \
+    dnf install -y \
+      epel-release \
+      rpmfusion-free-release \
+      https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm \
+    && \
+    dnf update -y && \
+    dnf install -y \
+      git \
+      gcc \
+      gcc-c++ \
+      python39-devel \
+      python39-pip \
+      openssl-devel \
+      make \
       curl \
-      ca-certificates \
-      python3 \
-      py3-pip \
-      jq \
-      libffi \
-      libxml2 \
-      libxslt \
-      openssl \
-      nodejs \
-      unrar  \
-      su-exec \
-      mediainfo \
-      tzdata \
+      cargo \
     && \
     pip3 --no-cache-dir install --upgrade \
       pip \
-      setuptools \ 
+      setuptools \
       virtualenv \
       wheel \
     && \
@@ -64,22 +68,34 @@ RUN set -x && \
     virtualenv /opt/sickchill && \
     . /opt/sickchill/bin/activate && \
     pip3 --no-cache-dir install --upgrade \
-      sickchill==${SICKCHILL_VERSION} \ 
+      sickchill==${SICKCHILL_VERSION} \
     && \
-    apk del --no-cache --purge \
-      build-deps  \
+    dnf history -y undo last && \
+    dnf install -y \
+     bash \
+     ca-certificates \
+     curl \
+     jq \
+     libffi \
+     libxml2 \
+     mediainfo \
+     nodejs \
+     python39 \
+     python39-lxml \
+     python39-pip \
+     unrar \
     && \
     mkdir -p /docker-entrypoint.d && \
     chmod +x /usr/local/bin/docker-entrypoint.sh && \
     ln -snf /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh && \
+    dnf clean all && \
     rm -rf /opt/sickchill/.git* \
            /tmp/* \
-           /var/cache/apk/*  \
+           /var/cache/yum/* \
            /var/tmp/* \
            ${HOME}/.cache \
            ${HOME}/.local \
-	   ${HOME}/.cargo
-
+           ${HOME}/.cargo
 ### Volume
 VOLUME ["/config", "/downloads", "/tv", "/animes"]
 

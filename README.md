@@ -11,6 +11,7 @@ Install sickchill into a Linux container
 Several tag are available:
 * latest: see alpine
 * centos7: [Dokerfile_centos7](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_centos7)
+* rocky8: [Dokerfile_rocky8](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_rocky8)
 * alpine: [Dockerfile_alpine](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_alpine)
 * any version specific tag is based on alpine.
 
@@ -52,7 +53,7 @@ This variable is not mandatory and specifies if the container has to launch soft
 
 * The docker entrypoint can upgrade operating system at each startup. To enable this feature, just add `-e DOCKUPGRADE=1` at container creation.
 * This cointainer contains a startup hook that disable sickchill autoupdate at startup.
-
+* `centos7` image might have issues with Cloudflare because of its SSL version: `DEPRECATION: The OpenSSL being used by this python install (OpenSSL 1.0.2k-fips  26 Jan 2017) does not meet the minimum supported version (>= OpenSSL 1.1.1) in order to support TLS 1.3 required by Cloudflare, You may encounter an unexpected Captcha or cloudflare 1020 blocks.`
 
 ## Issues
 
