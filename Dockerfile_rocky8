@@ -12,6 +12,8 @@ RUN set -x && \
     git clone --depth 1 https://github.com/ncopa/su-exec.git /opt/su-exec && \
     cd /opt/su-exec && \
     make
+
+ARG SICKCHILL_VERSION
     
 FROM rockylinux/rockylinux:8
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
