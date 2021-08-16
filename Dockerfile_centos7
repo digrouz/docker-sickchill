@@ -13,10 +13,10 @@ RUN set -x && \
     cd /opt/su-exec && \
     make
 
-ARG SICKCHILL_VERSION
-    
 FROM centos:7
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+
+ARG SICKCHILL_VERSION
 
 ### Environment variables
 ENV LANG='en_US.UTF-8' \

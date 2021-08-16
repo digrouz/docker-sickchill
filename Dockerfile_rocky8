@@ -13,11 +13,11 @@ RUN set -x && \
     cd /opt/su-exec && \
     make
 
-ARG SICKCHILL_VERSION
-    
 FROM rockylinux/rockylinux:8
 LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
 
+ARG SICKCHILL_VERSION
+    
 ### Environment variables
 ENV LANG='en_US.UTF-8' \
     LANGUAGE='en_US.UTF-8' \
