@@ -62,7 +62,7 @@ RUN set -x && \
     virtualenv /opt/sickchill && \
     . /opt/sickchill/bin/activate && \
     pip3 --no-cache-dir install --upgrade \
-      sickchill==${SICKCHILL_VERSION} \
+      git+https://github.com/SickChill/SickChill.git@${SICKCHILL_VERSION} \
     && \
     yum history -y undo last && \
     yum install -y \
