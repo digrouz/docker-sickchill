@@ -17,7 +17,7 @@ if [ "$1" == 'sickchill' ]; then
   RunDropletEntrypoint
   DockLog "Starting app: ${1}"
   . /opt/sickchill/bin/activate
-  exec su-exec "${MYUSER}" python3 /opt/sickchill/bin/SickChill.py --nolaunch --datadir=/config/ --config=/config/config.ini
+  exec su-exec "${MYUSER}" python3 /opt/sickchill/bin/SickChill --nolaunch --datadir=/config/ --config=/config/config.ini
 else
   DockLog "Starting app: ${@}"
   exec "$@"
