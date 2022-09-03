@@ -34,14 +34,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/sickchill:latest
       -
-        name: Build and push tag centos7
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile_centos7
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sickchill:centos7
-      -
         name: Build and push tag alpine
         uses: docker/build-push-action@v2
         with:

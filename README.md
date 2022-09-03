@@ -11,7 +11,6 @@ Install sickchill into a Linux container
 ## Tag
 Several tag are available:
 * latest: see alpine
-* centos7: [Dokerfile_centos7](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_centos7)
 * rocky8: [Dokerfile_rocky8](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_rocky8)
 * alpine: [Dockerfile_alpine](https://github.com/digrouz/docker-sickchill/blob/master/Dockerfile_alpine)
 * any version specific tag is based on alpine.
