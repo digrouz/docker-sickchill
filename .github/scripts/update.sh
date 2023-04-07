@@ -5,7 +5,9 @@ SICKCHILL_URL="https://api.github.com/repos/sickchill/sickchill/git/refs/tags"
 FULL_LAST_VERSION=$(curl -SsL ${SICKCHILL_URL} | jq '.[-1].ref' -r | sed -e 's|refs/tags/||')
 LAST_VERSION="${FULL_LAST_VERSION}"
 
-sed -i -e "s|SICKCHILL_VERSION='.*'|SICKCHILL_VERSION='${LAST_VERSION}'|" Dockerfile*
+if [ "${LAST_VERSION}" ]; then
+  sed -i -e "s|SICKCHILL_VERSION='.*'|SICKCHILL_VERSION='${LAST_VERSION}'|" Dockerfile*
+fi
 
 if output=$(git status --porcelain) && [ -z "$output" ]; then
   # Working directory clean
