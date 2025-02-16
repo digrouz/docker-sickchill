@@ -61,7 +61,6 @@ RUN set -x && \
       cargo \
     && \
     pip3 --no-cache-dir install --upgrade \
-      pip \
       setuptools \
       virtualenv \
       wheel \
