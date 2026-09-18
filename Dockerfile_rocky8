@@ -1,4 +1,4 @@
-ARG SICKCHILL_VERSION='2024.3.1'
+ARG SICKCHILL_VERSION='2026.9.18'
 
 FROM rockylinux/rockylinux:8 AS su-exec-builder
 
